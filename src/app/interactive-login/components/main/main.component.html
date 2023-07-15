@@ -1,0 +1,178 @@
+<h1>Login Layout</h1>
+
+<div class="main-container">
+
+    <div class="picture-box">
+
+        <div class="picture-background">
+
+            <div class="neck"></div>
+
+            <div class="face">
+
+                <div class="hair-line">
+                    <div class="hair"></div>
+                    <div class="hair hair-one"></div>
+                    <div class="hair hair-two"></div>
+                    <div class="ear-line">
+                        <div class="ear"></div>
+                        <div class="ear-mask"></div>
+                    </div>
+                    <div class="hair hair-three"></div>
+                    <div class="hair hair-four"></div>
+                    <div class="hair hair-five"></div>
+                </div>
+
+                <div class="eye-line">
+
+                    <div id="left-eye" #leftEye class="eye left-eye bg-white">
+                        <span id="left-pop-eye" #leftPopEye class="pop-eye"></span>
+                    </div>
+                    <div id="right-eye" #rightEye class="eye right-eye bg-white">
+                        <span id="right-pop-eye" #rightPopEye class="pop-eye"></span>
+                    </div>
+
+                </div>
+
+                <div class="nose-line">
+                    <div class="nose"></div>
+                    <div class="nose-mask"></div>
+                </div>
+
+                <div class="mouth-line">
+                    <div id="mouth" #mouth class="mouth">
+                        <div class="tongue"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="body-and-right-arm">
+
+                <div id="right-arm-line" #rightArm class="right-arm-line">
+                    <div class="right-arm"></div>
+                    <div class="right-shoulder"></div>
+                    <div id="right-forearm-line" #rightForearm class="right-forearm-line">
+                        <div class="right-forearm"></div>
+                        <div class="right-forearm-mask"></div>
+                        <div class="hand right-hand">
+                            <div class="wrist-mask"></div>
+                            <div class="finger-five">
+                                <div class="pre-finger"></div>
+                                <div class="post-finger">
+                                    <div class="post-finger-mask"></div>
+                                </div>
+                            </div>
+                            <div class="finger-four">
+                                <div class="pre-finger"></div>
+                                <div class="post-finger">
+                                    <div class="post-finger-mask"></div>
+                                </div>
+                            </div>
+                            <div class="finger-three">
+                                <div class="pre-finger"></div>
+                                <div class="post-finger">
+                                    <div class="post-finger-mask"></div>
+                                </div>
+                            </div>
+                            <div class="finger-two">
+                                <div class="pre-finger"></div>
+                                <div class="post-finger">
+                                    <div class="post-finger-mask"></div>
+                                </div>
+                            </div>
+                            <div class="finger-one">
+                                <div class="pre-finger"></div>
+                                <div class="post-finger">
+                                    <div class="post-finger-mask"></div>
+                                </div>
+                            </div>
+                            <div class="hand-mask"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body bg-white">
+
+                    <div class="shirt-neck-line">
+                        <div class="neck-mask"></div>
+                        <div class="shirt-neck-one-line">
+                            <div class="shirt-neck-one-mask"></div>
+                            <div class="shirt-neck-one"></div>
+                        </div>
+                        <div class="shirt-neck-two-line">
+                            <div class="shirt-neck-two-mask"></div>
+                            <div class="shirt-neck-two"></div>
+                        </div>
+                    </div>
+
+                    <div class="middle-shirt"></div>
+                    <div class="middle-shirt-mask">
+                        <span class="button"></span>
+                        <span class="button button-one"></span>
+                        <span class="button button-two"></span>
+                        <span class="button button-three"></span>
+                        <span class="button button-four"></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="left-arm-line" #leftArm class="left-arm-line">
+            <div class="left-arm"></div>
+            <div class="left-shoulder"></div>
+            <div id="left-forearm-line" #leftForearm class="left-forearm-line">
+                <div class="left-forearm"></div>
+                <div class="left-forearm-mask"></div>
+                <div class="hand">
+                    <div class="wrist-mask"></div>
+                    <div class="finger-five">
+                        <div class="pre-finger"></div>
+                        <div class="post-finger">
+                            <div class="post-finger-mask"></div>
+                        </div>
+                    </div>
+                    <div class="finger-four">
+                        <div class="pre-finger"></div>
+                        <div class="post-finger">
+                            <div class="post-finger-mask"></div>
+                        </div>
+                    </div>
+                    <div class="finger-three">
+                        <div class="pre-finger"></div>
+                        <div class="post-finger">
+                            <div class="post-finger-mask"></div>
+                        </div>
+                    </div>
+                    <div class="finger-two">
+                        <div class="pre-finger"></div>
+                        <div class="post-finger">
+                            <div class="post-finger-mask"></div>
+                        </div>
+                    </div>
+                    <div class="finger-one">
+                        <div class="pre-finger"></div>
+                        <div class="post-finger">
+                            <div class="post-finger-mask"></div>
+                        </div>
+                    </div>
+                    <div class="hand-mask"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div>
+    <button (click)="talk()">Talk</button>
+    <div>
+        <label for="lookCheck">Don't look!</label>
+        <input type="checkbox" id="lookCheck" (change)="changeLookCheckStatus($event)">
+    </div>
+</div>
