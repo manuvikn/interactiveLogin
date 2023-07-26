@@ -1,0 +1,27 @@
+.form-container {
+    width: 300px;
+}
+
+.form-group-icon {
+
+    position: relative;
+
+    &>i {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        font-size: 22px;
+        height: 100%;
+        width: 12%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: gray;
+        cursor: pointer;
+    }
+
+    &>input {
+        padding-right: 12%;
+    }
+
+}

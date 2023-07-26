@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Subscription, fromEvent } from "rxjs";
+import { CommentBoxService } from "../comment-box/comment-box.service";
 
 @Component({
     selector: 'app-main',
@@ -19,19 +20,28 @@ export class MainComponent implements AfterViewInit, OnDestroy {
     @ViewChild('mouth') mouth: ElementRef | undefined;
 
     mouseMoveSubscription: Subscription | undefined;
+    sendMessageSubscription: Subscription | undefined;
+    showCommentBox: boolean = false;
 
-    constructor() { }
+    constructor(private commentBoxService: CommentBoxService) { }
 
     ngAfterViewInit(): void {
 
-        this.mouseMoveSubscription =
-            fromEvent<MouseEvent>(document, 'mousemove')
-                .subscribe(this.mouseMoveEvent.bind(this));
+        setTimeout(() => {
+            this.mouseMoveSubscription =
+                fromEvent<MouseEvent>(document, 'mousemove')
+                    .subscribe(this.mouseMoveEvent.bind(this));
 
+            this.sendMessageSubscription =
+                this.commentBoxService.getMessage()
+                    .subscribe(this.sendMessage.bind(this));
+
+        });
     }
 
     ngOnDestroy(): void {
         this.mouseMoveSubscription?.unsubscribe();
+        this.sendMessageSubscription?.unsubscribe();
     }
 
     mouseMoveEvent(event: MouseEvent) {
@@ -102,34 +112,49 @@ export class MainComponent implements AfterViewInit, OnDestroy {
 
     }
 
-    talk(): void {
+    changeLookCheckStatus(hide: boolean, leftArm: boolean, rightArm: boolean): void {
 
-        if (!this.mouth) return;
-        this.mouth.nativeElement.classList.remove('animate-talking');
-        setTimeout(() => {
-            this.mouth!.nativeElement.classList.add('animate-talking');
-        }, 100);
+        const index: number = hide ? 0 : 1;
+        const dictionary = [
+            { normal: 'add', reverse: 'remove' },
+            { normal: 'remove', reverse: 'add' },
+        ];
+
+        if (leftArm) {
+            this.leftArm?.nativeElement.classList[dictionary[index].normal]('move-left-arm');
+            this.leftForearm?.nativeElement.classList[dictionary[index].normal]('move-left-forearm');
+            this.leftArm?.nativeElement.classList[dictionary[index].reverse]('move-left-arm-reverse');
+            this.leftForearm?.nativeElement.classList[dictionary[index].reverse]('move-left-forearm-reverse');
+        }
+
+        if (rightArm) {
+            this.rightArm?.nativeElement.classList[dictionary[index].normal]('move-right-arm');
+            this.rightForearm?.nativeElement.classList[dictionary[index].normal]('move-right-forearm');
+            this.rightArm?.nativeElement.classList[dictionary[index].reverse]('move-right-arm-reverse');
+            this.rightForearm?.nativeElement.classList[dictionary[index].reverse]('move-right-forearm-reverse');
+        }
 
     }
 
-    changeLookCheckStatus(event: Event): void {
+    manageHidingEyes({ hide, leftArm, rightArm }: any): void {
 
-        if (!event.target) return;
-        const checked = (event.target as any).checked ? 1 : 0;
-        const dictionary = [
-            { normal: 'remove', reverse: 'add' },
-            { normal: 'add', reverse: 'remove' }
-        ];
+        this.changeLookCheckStatus(hide, leftArm, rightArm);
 
-        this.leftArm?.nativeElement.classList[dictionary[checked].normal]('move-left-arm');
-        this.leftForearm?.nativeElement.classList[dictionary[checked].normal]('move-left-forearm');
-        this.rightArm?.nativeElement.classList[dictionary[checked].normal]('move-right-arm');
-        this.rightForearm?.nativeElement.classList[dictionary[checked].normal]('move-right-forearm');
+    }
 
-        this.leftArm?.nativeElement.classList[dictionary[checked].reverse]('move-left-arm-reverse');
-        this.leftForearm?.nativeElement.classList[dictionary[checked].reverse]('move-left-forearm-reverse');
-        this.rightArm?.nativeElement.classList[dictionary[checked].reverse]('move-right-arm-reverse');
-        this.rightForearm?.nativeElement.classList[dictionary[checked].reverse]('move-right-forearm-reverse');
+    sendMessage(_message: string): void {
+
+        this.showCommentBox = true;
+        this.mouth?.nativeElement.classList.add('animate-talking');
+
+    }
+
+    destroyCommentBox(): void {
+
+        setTimeout(() => {
+            this.mouth?.nativeElement.classList.remove('animate-talking');
+            this.showCommentBox = false;
+        }, 500);
 
     }
 

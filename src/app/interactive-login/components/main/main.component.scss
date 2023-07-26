@@ -1,8 +1,16 @@
+:host *, :host * ::after, :host * ::before {
+    box-sizing: content-box;
+}
+
 .main-container {
 
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 2em;
+    margin-top: 2vh;
 
 }
 
@@ -229,7 +237,7 @@
 .animate-talking {
     animation-name: talking;
     animation-duration: 0.7s;
-    animation-iteration-count: 4;
+    animation-iteration-count: infinite;
 }
 
 .tongue {
@@ -697,7 +705,7 @@
     }
 
     100% {
-        rotate: -127deg;
+        rotate: -130deg;
     }
 }
 

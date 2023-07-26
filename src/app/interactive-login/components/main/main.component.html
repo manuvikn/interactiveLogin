@@ -1,6 +1,6 @@
-<h1>Login Layout</h1>
-
 <div class="main-container">
+
+    <h1>Interactive Login</h1>
 
     <div class="picture-box">
 
@@ -164,15 +164,10 @@
             </div>
         </div>
 
+        <app-comment-box (destroyCommentBox)="destroyCommentBox()" *ngIf="showCommentBox"></app-comment-box>
+
     </div>
 
+    <app-interactive-login-form (hideEyes)="manageHidingEyes($event)" (modifyEyesPosition)="mouseMoveEvent($event)"></app-interactive-login-form>
 
-</div>
-
-<div>
-    <button (click)="talk()">Talk</button>
-    <div>
-        <label for="lookCheck">Don't look!</label>
-        <input type="checkbox" id="lookCheck" (change)="changeLookCheckStatus($event)">
-    </div>
 </div>
