@@ -1,17 +1,21 @@
-<form class="form-container">
+<form *ngIf="loginForm" class="form-container" [formGroup]="loginForm" (ngSubmit)="submitLoginForm($event)">
     <div class="mb-3">
         <label class="form-label">Email address</label>
-        <input #email (keyup)="getTypingLinePosition($event, email)" type="text" class="form-control" aria-describedby="emailHelp">
+        <input #email formControlName="email" (keyup)="getTypingLinePosition($event, email)" (blur)="validateControl('email')" 
+        type="text" class="form-control no-bg-image" aria-describedby="emailHelp"
+        [ngClass]="{'is-invalid': (!loginForm.get('email')?.pristine && loginForm.get('email')?.errors)}">
     </div>
     <div class="mb-3">
         <label class="form-label">Password</label>
         <div class="form-group-icon">
-            <input #password type="password" (keyup)="getTypingLinePosition($event, password)" (focus)="hideEyesFunction(true)" (blur)="hideEyesFunction(false)" class="form-control">
+            <input #password type="password" formControlName="password" (keyup)="getTypingLinePosition($event, password)" 
+            (focus)="hideEyesFunction(true)" (blur)="onPasswordBlur(false, 'password')" class="form-control no-bg-image"
+            [ngClass]="{'is-invalid': (!loginForm.get('password')?.pristine && loginForm.get('password')?.errors)}">
             <i class="bi" [ngClass]="{'bi-eye-fill': !passwordVisibility, 'bi-eye-slash-fill': passwordVisibility}" 
             (mousedown)="changePasswordVisibility($event, password)"></i>
         </div>
     </div>
     <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit">Login</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Login</button>
     </div>
 </form>

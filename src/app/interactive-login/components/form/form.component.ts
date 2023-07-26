@@ -1,19 +1,33 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { CommentBoxService } from "../comment-box/comment-box.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
     selector: 'app-interactive-login-form',
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss']
 })
-export class FormComponent {
+export class FormComponent implements OnInit {
 
     @Output() hideEyes: EventEmitter<any> = new EventEmitter();
     @Output() modifyEyesPosition: EventEmitter<any> = new EventEmitter();
-    
-    passwordVisibility: boolean = false;
 
-    constructor(private commentBoxService: CommentBoxService) { }
+    loginForm: FormGroup | undefined;
+    passwordVisibility: boolean = false;
+    validatorDictionary: any = {
+        pattern: 'must be a valid email address.',
+        required: 'is required.',
+    }
+
+    constructor(private commentBoxService: CommentBoxService,
+        private fb: FormBuilder) { }
+
+    ngOnInit(): void {
+        this.loginForm = this.fb.group({
+            email: this.fb.control('', [Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.required]),
+            password: this.fb.control('', [Validators.required])
+        });
+    }
 
     hideEyesFunction(hide: boolean): void {
 
@@ -32,7 +46,6 @@ export class FormComponent {
             this.hideEyes.emit({ hide: !this.passwordVisibility, rightArm: false, leftArm: true });
 
         }
-
 
     }
 
@@ -59,13 +72,37 @@ export class FormComponent {
 
         this.modifyEyesPosition.emit({ pageY: y, pageX: x });
 
-        this.launchCommentBox( 'Hello World!' );
+    }
+
+    onPasswordBlur(hide: boolean, control: string): void {
+        this.hideEyesFunction(hide);
+        this.validateControl(control);
+    }
+
+    validateControl(controlName: string): void {
+
+        const control = this.loginForm?.get(controlName);
+        if (!control || control.pristine || control.valid) return;
+
+        const errors = control.errors || {};
+        const message = new String(`The field ${controlName} `).concat(
+            Object.keys(errors).map((error: string) => this.validatorDictionary[error]).join('\n')
+        );
+
+        this.launchCommentBox( message );
 
     }
 
     launchCommentBox(message: string): void {
 
-        this.commentBoxService.setMessage( message );
+        this.commentBoxService.setMessage(message);
+
+    }
+
+    submitLoginForm(event: Event): void {
+
+        this.loginForm?.reset();
+        this.launchCommentBox( 'You have logged in successfully!' );
 
     }
 
