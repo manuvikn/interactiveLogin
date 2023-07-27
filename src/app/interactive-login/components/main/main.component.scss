@@ -137,6 +137,7 @@
     left: 111px;
     height: 20px;
     width: 36px;
+    border: 1px solid black;
 }
 
 .neck-mask {
@@ -812,5 +813,31 @@
     animation-name: moveRightForeArmReverse;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
+
+}
+
+.pocket {
+
+    position: absolute;
+    top: -55px;
+    left: 8px;
+    width: 25px;
+    height: 26px;
+    border: 1px solid black;
+    border-radius: 0% 100% 100% 0%/100% 48% 52% 0%;
+
+}
+
+.pocket-pen {
+
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    width: 4px;
+    height: 12px;
+    border: 1px solid black;
+    background-color: blue;
+    border-radius: 0% 100% 0% 100%/0% 100% 0% 100%;
+    rotate: -76deg;
 
 }
